@@ -7,7 +7,7 @@ const markdown = new MarkdownIt();
 const ps = require('@prisma/client');
 const prisma = new ps.PrismaClient();
 
-//ログインチェックの関数
+//ログインチェックの関数 
 function check(req, res){
     if (req.session.login === undefined) {
         req.session.back = '/';
@@ -54,7 +54,7 @@ router.get('/mark/:id', (req, res, next) => {
         orderBy: [
             { createdAt: 'desc' }
         ],
-    }).then((models) => {                        //ここ何やってる？
+    }).then((models) => {                        //ここ何やってる？要確認
         const model = models != null ?
             models[0] != null ?
                 models[0] : null : null;
