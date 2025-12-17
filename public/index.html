@@ -22,6 +22,42 @@
             var content = '';
             var editId = 0;
             var modeb = '新規作成';
+
+            //表示の更新
+            function refresh() {
+                document.querySelector("#accountId").textContent = accountId;
+                document.querySelector("#title").value = title;
+                document.querySelector("#source").value = source;
+                document.querySelector("#content").innerHTML = content;
+                document.querySelector("#modebtn").value = mode;
+            }
+
+            //データの更新
+            function refreshData() {
+                let con = "";
+                mkdata.map((ob)=>{
+                    con += "<tr><td>";
+                    con += '<a className="text-dark" href="#" onClick="getById(event)" name="' + ob.id + '">';
+                    con += ob.title + "</a>";
+                    con += "</td></tr>";
+                });
+                document.querySelector('#datacontainer').innerHTML = con;
+            }
+
+            //アカウントのチェック
+            function getAccount() {
+                fetch('/api/check')
+                .then(resp=> resp.json())
+                .then(res=>{
+                    if (res.result != false) {
+                        accountId = res.result;
+                        getAllData();
+                        refresh();
+                    } else {
+                        window.location.href = "/login.html"; //　★ログインページ
+                    }
+                });
+            }
         </script>
     </head>
     <body class="container">
